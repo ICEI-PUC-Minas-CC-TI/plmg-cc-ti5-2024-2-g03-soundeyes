@@ -1,13 +1,13 @@
 cff-version: 1.0.1
 message: Please cite this software using these metadata.
-title: 
+title: SoundEyes - Real-time audio description of environments for the visually impaired
 authors:
-  - family-names: 
-    given-names: 
-  - family-names: 
-    given-names: 
-  - family-names: 
-    given-names: 
+  - family-names: Gabriel de Oliveira
+    given-names: Fellipe
+  - family-names: Vitor de Paula Gomes
+    given-names: Jerson
+  - family-names: Freitas Oliveira
+    given-names: Wallace
   - family-names: 
     given-names: 
   - family-names: 
@@ -16,16 +16,19 @@ authors:
     given-names:
   - name-suffix: Professor
     affiliation: PUC Minas
-    family-names: 
-    given-names: 
+    family-names: Domingos da Cunha
+    given-names: Felipe
   - name-suffix: Professor
     affiliation: PUC Minas
-    family-names: 
-    given-names: 
+    family-names: Alcântara Souza
+    given-names: Matheus
 keywords:
-  - 
-  - 
-repository-code: 
+  - Visual Assistance
+  - Visual Impairment
+  - Audio Description
+  - Assistive Technology
+  - Image Recognition
+repository-code: https://github.com/ICEI-PUC-Minas-CC-TI/plmg-cc-ti5-2024-2-g03-soundeyes
 license: CC-BY-4.0
 version: 1.0.0
 date-released: 2022-07-14
