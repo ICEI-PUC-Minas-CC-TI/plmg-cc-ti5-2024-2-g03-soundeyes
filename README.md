@@ -1,18 +1,18 @@
-# [Nome do projeto]
+# SoundEyes: Audiodescrição em tempo real de ambientes para pessoas com deficiência visual
 
 [Escreva um ou dois  parágrafo resumindo o objetivo do seu projeto.]
 
 ## Alunos integrantes da equipe
 
-* [Nome completo do aluno 1]
-* [Nome completo do aluno 2]
-* [Nome completo do aluno 3]
+* Fellipe Gabriel de Oliveira
+* Jerson Vitor de Paula Gomes
+* Wallace Freitas Oliveira
 * [Nome completo do aluno 4]
 
 ## Professores responsáveis
 
-* [Nome completo do professor 1]
-* [Nome completo do professor 2]
+* Felipe Domingos da Cunha
+* Matheus Alcântara Souza
 
 ## Instruções de utilização
 
