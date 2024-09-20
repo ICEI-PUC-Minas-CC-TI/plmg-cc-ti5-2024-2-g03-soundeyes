@@ -7,7 +7,6 @@
 * Fellipe Gabriel de Oliveira
 * Jerson Vitor de Paula Gomes
 * Wallace Freitas Oliveira
-* [Nome completo do aluno 4]
 
 ## Professores responsáveis
 
