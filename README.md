@@ -1,4 +1,4 @@
-# SoundEyes: Audiodescrição em tempo real de ambientes para pessoas com deficiência visual
+# SoundEyes: Sistema de audiodescrição de ambientes para pessoas com deficiência visual
 
 [Escreva um ou dois  parágrafo resumindo o objetivo do seu projeto.]
 
