@@ -16,6 +16,7 @@ Este projeto busca abordar essas questões por meio de tecnologias assistivas in
 
 * Felipe Domingos da Cunha
 * Matheus Alcântara Souza
+* Rafael Henriques Nogueira Diniz
 
 ## Instruções de utilização
 
