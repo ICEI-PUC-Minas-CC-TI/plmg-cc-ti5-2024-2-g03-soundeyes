@@ -1,0 +1,80 @@
+pessoa
+bicicleta
+carro
+motocicleta
+avião
+ônibus
+trem
+caminhão
+barco
+semáforo
+hidrante
+placa de pare
+parquímetro
+banco
+pássaro
+gato
+cachorro
+cavalo
+ovelha
+vaca
+elefante
+urso
+zebra
+girafa
+mochila
+guarda-chuva
+bolsa
+gravata
+mala
+frisbee
+esquis
+snowboard
+bola de esporte
+pipa
+taco de baseball
+luva de baseball
+skate
+prancha de surfe
+raquete de tênis
+garrafa
+taça de vinho
+copo
+garfo
+faca
+colher
+tigela
+banana
+maçã
+sanduíche
+laranja
+brócolis
+cenoura
+cachorro-quente
+pizza
+rosquinha
+bolo
+cadeira
+sofá
+vaso de planta
+cama
+mesa de jantar
+vaso sanitário
+tv
+laptop
+mouse
+controle remoto
+teclado
+celular
+micro-ondas
+forno
+torradeira
+pia
+geladeira
+livro
+relógio
+vaso
+tesoura
+ursinho de pelúcia
+secador de cabelo
+escova de dentes

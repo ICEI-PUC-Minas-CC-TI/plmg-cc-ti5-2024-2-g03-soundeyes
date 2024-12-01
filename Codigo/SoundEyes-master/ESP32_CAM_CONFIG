@@ -1,0 +1,165 @@
+#include "esp_camera.h"
+#include "BluetoothSerial.h"
+#include "esp_bt_device.h"
+
+BluetoothSerial SerialBT;
+
+// Definições de pinos para o ESP32-CAM
+#define PWDN_GPIO_NUM 32
+#define RESET_GPIO_NUM -1
+#define XCLK_GPIO_NUM 0
+#define SIOD_GPIO_NUM 26
+#define SIOC_GPIO_NUM 27
+#define Y9_GPIO_NUM 35
+#define Y8_GPIO_NUM 34
+#define Y7_GPIO_NUM 39
+#define Y6_GPIO_NUM 36
+#define Y5_GPIO_NUM 21
+#define Y4_GPIO_NUM 19
+#define Y3_GPIO_NUM 18
+#define Y2_GPIO_NUM 5
+#define VSYNC_GPIO_NUM 25
+#define HREF_GPIO_NUM 23
+#define PCLK_GPIO_NUM 22
+
+// Variável global para controle de captura
+int captureFlag = 0;
+int imageOptions = 0;
+
+// Função para configurar a câmera
+void setupCamera() {
+    camera_config_t config;
+    config.ledc_channel = LEDC_CHANNEL_0;
+    config.ledc_timer = LEDC_TIMER_0;
+    config.pin_d0 = Y2_GPIO_NUM;
+    config.pin_d1 = Y3_GPIO_NUM;
+    config.pin_d2 = Y4_GPIO_NUM;
+    config.pin_d3 = Y5_GPIO_NUM;
+    config.pin_d4 = Y6_GPIO_NUM;
+    config.pin_d5 = Y7_GPIO_NUM;
+    config.pin_d6 = Y8_GPIO_NUM;
+    config.pin_d7 = Y9_GPIO_NUM;
+    config.pin_xclk = XCLK_GPIO_NUM;
+    config.pin_pclk = PCLK_GPIO_NUM;
+    config.pin_vsync = VSYNC_GPIO_NUM;
+    config.pin_href = HREF_GPIO_NUM;
+    config.pin_sscb_sda = SIOD_GPIO_NUM;
+    config.pin_sscb_scl = SIOC_GPIO_NUM;
+    config.pin_pwdn = PWDN_GPIO_NUM;
+    config.pin_reset = RESET_GPIO_NUM;
+    config.xclk_freq_hz = 20000000;
+    config.pixel_format = PIXFORMAT_JPEG;
+
+    if (psramFound() && imageOptions == 1) {
+        config.frame_size = FRAMESIZE_VGA;
+        config.jpeg_quality = 20;
+    } else {
+        config.frame_size = FRAMESIZE_VGA;
+        config.jpeg_quality = 20;
+    }
+    config.fb_count = 1;
+
+    esp_err_t err = esp_camera_init(&config);
+     if (err != ESP_OK) {
+       Serial.printf("Erro ao iniciar a câmera: 0x%x", err);
+        return;
+    }
+}
+
+// Função para capturar a imagem
+camera_fb_t* captureImage() {
+    camera_fb_t *fb = esp_camera_fb_get();
+    if (!fb) {
+        Serial.println("Falha ao capturar a imagem");
+        return nullptr;
+    }
+    Serial.printf("Imagem capturada - Tamanho: %d bytes\n", fb->len);
+    return fb;
+}
+
+// Função para enviar a imagem via Bluetooth Serial em pacotes pequenos
+void sendImageViaBluetooth(camera_fb_t *fb) {
+    uint8_t *imageBuffer = fb->buf;
+    size_t imageSize = fb->len;
+    size_t bytesSent = 0;
+    const size_t chunkSize = 20480;
+
+    while (bytesSent < imageSize) {
+        size_t remainingBytes = imageSize - bytesSent;
+        size_t currentChunkSize = (remainingBytes > chunkSize) ? chunkSize : remainingBytes;
+        SerialBT.write(imageBuffer + bytesSent, currentChunkSize);
+
+        bytesSent += currentChunkSize;
+        Serial.printf("Enviado pacote de %d bytes\n", currentChunkSize);
+        delay(10); // Pequeno atraso para evitar congestionamento
+    }
+
+    uint8_t endFlag[4] = {0xFF, 0xD9, 0xFF, 0xD9}; // Flag de fim de imagem
+    SerialBT.write(endFlag, sizeof(endFlag));
+
+    Serial.println("Imagem completa enviada!");
+}
+
+void setup() {
+    Serial.begin(115200);
+    SerialBT.begin("ESP32CAM"); // Nome do dispositivo Bluetooth
+    Serial.println("Bluetooth iniciado!");
+
+    // Exibir o endereço MAC do ESP32
+    const uint8_t* macAddress = esp_bt_dev_get_address();
+    Serial.print("Endereço MAC do Bluetooth ESP32: ");
+    for (int i = 0; i < 6; i++) {
+        Serial.printf("%02X", macAddress[i]);
+        if (i < 5) Serial.print(":");
+    }
+    Serial.println();
+
+    setupCamera();
+    Serial.println("Configuração concluída.");
+}
+
+void loop() {
+    if (SerialBT.available()) {
+        int received = SerialBT.read();
+        Serial.println(received);
+        switch(received){
+          case 0:
+            captureFlag = 0;
+            Serial.println("Comando recebido: Pausar captura de imagem");
+            break;
+          case 1:
+            captureFlag = 1;
+            Serial.println("Comando recebido: Iniciar captura de imagem");
+            break;
+          case 2: // Velocidade de Processamento
+            imageOptions = 0;
+            SerialBT.write(1);
+            Serial.println("Comando recebido: Configurações de captura baixa de imagem");
+            break;
+          case 3: // Qualidade Informação
+            imageOptions = 1;
+            SerialBT.write(1);
+            Serial.println("Comando recebido: Configurações de captura alta de imagem");
+            break;
+        }
+
+        if (received == 1) {
+            captureFlag = 1;
+            Serial.println("Comando recebido: Iniciar captura de imagem");
+        } else if (received == 0) {
+            captureFlag = 0;
+            Serial.println("Comando recebido: Parar captura de imagem");
+        }
+    }
+
+    // Captura e envia a imagem se o captureFlag estiver ativado
+    if (captureFlag) {
+        camera_fb_t *fb = captureImage();
+        if (fb) {
+            sendImageViaBluetooth(fb);
+            esp_camera_fb_return(fb); // Libera a imagem da memória
+        }
+        //delay(1000); 
+        captureFlag = 0;// Atraso para controlar a taxa de captura
+    }
+}
