@@ -1,4 +1,4 @@
-# SoundEyes: Sistema de audiodescrição de ambientes para pessoas com deficiência visual
+# SoundEyes: Sistema de audiodescrição de obstáculos para pessoas com deficiência visual
 
 A visão é um dos sentidos mais complexos e fundamentais para a interação humana com o ambiente. Ela permite a captação e interpretação imediata de informações visuais, facilitando a compreensão do espaço e a identificação de objetos. No entanto, cerca de 2,2 bilhões de pessoas no mundo apresentam algum grau de deficiência visual, o que limita sua autonomia e segurança, impactando suas interações sociais, profissionais e pessoais.
 
