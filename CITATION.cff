@@ -8,12 +8,6 @@ authors:
     given-names: Jerson
   - family-names: Freitas Oliveira
     given-names: Wallace
-  - family-names: 
-    given-names: 
-  - family-names: 
-    given-names: 
-  - family-names: 
-    given-names:
   - name-suffix: Professor
     affiliation: PUC Minas
     family-names: Domingos da Cunha
@@ -31,4 +25,4 @@ keywords:
 repository-code: https://github.com/ICEI-PUC-Minas-CC-TI/plmg-cc-ti5-2024-2-g03-soundeyes
 license: CC-BY-4.0
 version: 1.0.0
-date-released: 2022-07-14
+date-released: 2024-11-29
