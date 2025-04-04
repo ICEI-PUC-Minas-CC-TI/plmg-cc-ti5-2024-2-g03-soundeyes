@@ -17,7 +17,8 @@ Este projeto busca abordar essas questões por meio de tecnologias assistivas in
 * Felipe Domingos da Cunha
 * Matheus Alcântara Souza
 * Rafael Henriques Nogueira Diniz
-
+<!--
 ## Instruções de utilização
 
 [Assim que a primeira versão do sistema estiver disponível, deverá complementar com as instruções de utilização. Descreva como instalar eventuais dependências e como executar a aplicação.]
+-->
